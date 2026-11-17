@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema Mantenimiento - Junín</title>
+<style>
+body{font-family:Arial;background:#f0f2f5;margin:0;padding:0}
+header{background:#1F3A5F;color:white;padding:15px;text-align:center}
+.container{max-width:900px;margin:20px auto;background:white;padding:20px;border-radius:10px;box-shadow:0 0 10px #ccc}
+h2{color:#1F3A5F}
+input,select,textarea{width:100%;padding:10px;margin:5px 0;border:1px solid #ccc;border-radius:5px}
+button{background:#1F3A5F;color:white;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;margin:5px 0}
+button:hover{background:#2c5a8a}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:8px;text-align:left}
+th{background:#1F3A5F;color:white}
+.card{background:#e8eef5;padding:15px;border-radius:8px;margin:10px 0}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header><h1>Sistema de Información Web</h1><p>Gestión de Solicitudes de Mantenimiento - Instituciones Educativas de Junín, Cundinamarca</p></header>
+
+<div class="container" id="loginDiv">
+<h2>Inicio de Sesión</h2>
+<p>Para probar usa: <b>Admin:</b> admin@junin.edu.co / 1234 | <b>Responsable:</b> resp@junin.edu.co / 1234 | <b>Solicitante:</b> user@junin.edu.co / 1234</p>
+<input id="correo" placeholder="Correo">
+<input id="clave" type="password" placeholder="Contraseña">
+<button onclick="login()">Ingresar</button>
+</div>
+
+<div class="container hidden" id="appDiv">
+<h2>Panel Principal - <span id="rolTexto"></span></h2>
+<button onclick="logout()">Cerrar Sesión</button>
+<div class="card"><b>Total:</b> <span id="total">0</span> | <b>Pendientes:</b> <span id="pend">0</span> | <b>En Proceso:</b> <span id="proc">0</span> | <b>Atendidas:</b> <span id="aten">0</span></div>
+
+<h2>Registrar Nueva Solicitud</h2>
+<input id="desc" placeholder="Descripción del daño o necesidad">
+<input id="ubic" placeholder="Ubicación - Ej: Sede Principal, Salón 3">
+<select id="tipo"><option>Infraestructura</option><option>Eléctrico</option><option>Mobiliario</option><option>Plomería</option><option>Otro</option></select>
+<select id="prio"><option>Alta</option><option>Media</option><option>Baja</option></select>
+<input id="inst" placeholder="Institución - Ej: I.E. Junín">
+<button onclick="registrar()">Registrar Solicitud</button>
+
+<h2>Listado de Solicitudes</h2>
+<select id="filtro" onchange="mostrar()"><option value="Todas">Ver Todas</option><option>Pendiente</option><option>En Proceso</option><option>Atendida</option><option>Cerrada</option></select>
+<table><thead><tr><th>ID</th><th>Descripción</th><th>Ubicación</th><th>Tipo</th><th>Prioridad</th><th>Estado</th><th>Responsable</th><th>Acción</th></tr></thead><tbody id="tabla"></tbody></table>
+
+<h2>Reporte Rápido</h2>
+<div id="reporte" class="card"></div>
+<h2>Historial / Seguimiento</h2>
+<div id="historial" class="card">Selecciona una solicitud para ver su historial.</div>
+</div>
+
+<script>
+let solicitudes = JSON.parse(localStorage.getItem('solicitudes') || '[]');
+let historial = JSON.parse(localStorage.getItem('historial') || '[]');
+let usuarios = [{c:'admin@junin.edu.co',p:'1234',r:'Administrador'},{c:'resp@junin.edu.co',p:'1234',r:'Responsable'},{c:'user@junin.edu.co',p:'1234',r:'Solicitante'}];
+
+function login(){
+  let c=document.getElementById('correo').value;
+  let p=document.getElementById('clave').value;
+  let u=usuarios.find(x=>x.c==c && x.p==p);
+  if(u){document.getElementById('loginDiv').classList.add('hidden');document.getElementById('appDiv').classList.remove('hidden');document.getElementById('rolTexto').innerText=u.r;mostrar();}
+  else alert('Correo o contraseña incorrecta. Usa los de ejemplo.');
+}
+function logout(){location.reload();}
+function registrar(){
+  let d=document.getElementById('desc').value;
+  if(!d) return alert('Escribe la descripción');
+  let s={id:solicitudes.length+1,desc:d,ubic:document.getElementById('ubic').value,tipo:document.getElementById('tipo').value,prio:document.getElementById('prio').value,inst:document.getElementById('inst').value,estado:'Pendiente',resp:'Sin asignar',fecha:new Date().toLocaleString()};
+  solicitudes.push(s); historial.push('Solicitud '+s.id+' creada el '+s.fecha);
+  localStorage.setItem('solicitudes',JSON.stringify(solicitudes)); localStorage.setItem('historial',JSON.stringify(historial));
+  alert('Solicitud registrada correctamente'); mostrar();
+}
+function cambiar(id){
+  let s=solicitudes.find(x=>x.id==id);
+  let nuevo=prompt('Nuevo estado: Pendiente, En Proceso, Atendida, Cerrada',s.estado);
+  if(nuevo){s.estado=nuevo; s.resp='Juan Pérez - Mantenimiento'; historial.push('Solicitud '+id+' cambió a '+nuevo+' el '+new Date().toLocaleString()); localStorage.setItem('solicitudes',JSON.stringify(solicitudes)); localStorage.setItem('historial',JSON.stringify(historial)); mostrar();}
+}
+function verHist(id){document.getElementById('historial').innerHTML=historial.filter(h=>h.includes('Solicitud '+id)).join('<br>') || 'Sin historial';}
+function mostrar(){
+  let f=document.getElementById('filtro').value;
+  let lista=solicitudes.filter(s=>f=='Todas'||s.estado==f);
+  document.getElementById('tabla').innerHTML=lista.map(s=>`<tr><td>${s.id}</td><td>${s.desc}</td><td>${s.ubic}</td><td>${s.tipo}</td><td>${s.prio}</td><td>${s.estado}</td><td>${s.resp}</td><td><button onclick="cambiar(${s.id})">Cambiar Estado</button><button onclick="verHist(${s.id})">Historial</button></td></tr>`).join('');
+  document.getElementById('total').innerText=solicitudes.length;
+  document.getElementById('pend').innerText=solicitudes.filter(s=>s.estado=='Pendiente').length;
+  document.getElementById('proc').innerText=solicitudes.filter(s=>s.estado=='En Proceso').length;
+  document.getElementById('aten').innerText=solicitudes.filter(s=>s.estado=='Atendida'||s.estado=='Cerrada').length;
+  document.getElementById('reporte').innerHTML='Total por tipo: '+['Infraestructura','Eléctrico','Mobiliario','Plomería','Otro'].map(t=>t+': '+solicitudes.filter(s=>s.tipo==t).length).join(' | ');
+}
+mostrar();
+</script>
+</body>
+</html>
