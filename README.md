@@ -5,18 +5,18 @@
 ### Proyecto de Grado - Ingeniería de Sistemas
 ### Universidad Nacional Abierta y a Distancia - UNAD
 ### Curso: Proyecto de Grado - Código: 202016907
-### Fase 4 - Desarrollo de la Propuesta Ingenieril
+### Fase 4 - Información general del componente practico
 
 ---
 
-## 👥 Autoras
+## Autoras
 
 | Nombre | Rol en Scrum |
 | --- | --- |
 | Jeny Michelle Cardona Nuñez | Product Owner / Desarrolladora |
 | Angie Paola Castañeda Murillo | Scrum Master / Desarrolladora |
 
-## 📋 Descripción del Proyecto
+## Descripción del Proyecto
 
 Este prototipo funcional fue desarrollado para mejorar la gestión de solicitudes de mantenimiento en las instituciones educativas del municipio de Junín, Cundinamarca.
 
@@ -24,11 +24,11 @@ Actualmente el proceso se realiza de forma manual, en papel o por mensajes, lo q
 
 **Nivel de maduración tecnológica: TRL5** - Prototipo validado en ambiente relevante.
 
-## 🎯 Objetivo
+## Objetivo
 
 Desarrollar un prototipo funcional TRL5 que permita registrar, clasificar, asignar, hacer seguimiento y generar reportes de las solicitudes de mantenimiento.
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - **Lenguaje:** HTML, CSS, JavaScript, Python
 - **Base de datos:** MySQL (en versión de demostración se usa almacenamiento local para facilitar la prueba)
@@ -36,7 +36,7 @@ Desarrollar un prototipo funcional TRL5 que permita registrar, clasificar, asign
 - **Metodología:** Scrum + Kanban + CDIO
 - **Diseño:** Figma / HTML
 
-## 🔄 Metodología Ágil - Scrum
+## Metodología Ágil - Scrum
 
 El desarrollo se organizó en 4 Sprints:
 
@@ -49,31 +49,30 @@ El desarrollo se organizó en 4 Sprints:
 
 **Tablero Kanban:** Por Hacer / En Proceso / En Prueba / Terminado
 
-## 📱 Funcionalidades del Prototipo
+## Funcionalidades del Prototipo
 
-- ✅ Inicio de sesión por roles
-- ✅ Registro de solicitudes de mantenimiento
-- ✅ Clasificación por tipo: Infraestructura, Eléctrico, Mobiliario, Plomería, Otro
-- ✅ Priorización: Alta, Media, Baja
-- ✅ Asignación de responsable
-- ✅ Actualización de estado: Pendiente, En Proceso, Atendida, Cerrada
-- ✅ Consulta e historial de solicitudes
-- ✅ Generación de reportes por estado, tipo y prioridad
+- Inicio de sesión por roles
+- Registro de solicitudes de mantenimiento
+- Clasificación por tipo: Infraestructura, Eléctrico, Mobiliario, Plomería, Otro
+- Priorización: Alta, Media, Baja
+- Asignación de responsable
+- Actualización de estado: Pendiente, En Proceso, Atendida, Cerrada
+- Consulta e historial de solicitudes
+- Generación de reportes por estado, tipo y prioridad
 
-## 🚀 Cómo Probar el Prototipo
+## Cómo Probar el Prototipo
 
 ### Opción 1 - En línea (la más fácil)
 Abre este link en tu navegador:
-**https://TU_USUARIO.github.io/prototipo-mantenimiento-junin/**
+**https://Cardona98.github.io/prototipo-mantenimiento-junin/**
 
-> Recuerda cambiar TU_USUARIO por tu usuario real de GitHub.
 
 ### Opción 2 - Descargando el archivo
 1. Descarga el archivo `index.html`
 2. Ábrelo con doble clic en tu navegador (Chrome, Edge, Firefox)
 3. ¡Listo! No necesitas instalar nada.
 
-## 🔑 Usuarios de Prueba
+## Usuarios de Prueba
 
 Para probar los diferentes roles, usa estos usuarios:
 
@@ -83,13 +82,13 @@ Para probar los diferentes roles, usa estos usuarios:
 | Responsable | resp@junin.edu.co | 1234 |
 | Solicitante | user@junin.edu.co | 1234 |
 
-## 🧪 Cómo Hacer una Prueba Completa
+## Cómo Hacer una Prueba Completa
 
 1. Ingresa como **Solicitante** (user@junin.edu.co / 1234)
 2. Registra una solicitud: Ej: "Daño en el salón 3, toma corriente no funciona"
 3. Cierra sesión e ingresa como **Administrador** (admin@junin.edu.co / 1234)
 4. Busca tu solicitud en el listado y dale clic en **Cambiar Estado** a **En Proceso**
 5. Revisa el **Reporte Rápido** y el **Historial**
-6. Verás como el flujo completo funciona: Registrar -> Clasificar -> Asignar -> Actualizar -> Cerrar
+6. Se vera como el flujo completo funciona: Registrar -> Clasificar -> Asignar -> Actualizar -> Cerrar
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
