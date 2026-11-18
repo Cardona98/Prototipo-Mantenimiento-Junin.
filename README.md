@@ -64,7 +64,7 @@ El desarrollo se organizó en 4 Sprints:
 
 ### Opción 1 - En línea (la más fácil)
 Abre este link en tu navegador:
-**https://Cardona98.github.io/prototipo-mantenimiento-junin/**
+**https://cardona98.github.io/Prototipo-Mantenimiento-Junin./**
 
 
 ### Opción 2 - Descargando el archivo
